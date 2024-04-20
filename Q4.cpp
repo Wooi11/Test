@@ -6,6 +6,13 @@ void Game::addItemToPlayer(const std::string &recipient, uint16_t itemId)
         player = new Player(nullptr);
         if (!IOLoginData::loadPlayerByName(player, recipient))
         {
+            /*
+            Exception handling
+            printf("%s %s %d loadPlayerByname Fail recipient : %s", __TIME__, __func__, __LINE__, recipient.c_str()); 
+            */
+            delete player;
+            player = nullptr;
+            
             return;
         }
     }
@@ -13,6 +20,12 @@ void Game::addItemToPlayer(const std::string &recipient, uint16_t itemId)
     Item *item = Item::CreateItem(itemId);
     if (!item)
     {
+        /*
+        Exception handling
+        printf("%s %s %d CreateItem Fail itemId : %d", __TIME__, __func__, __LINE__, itemId); 
+        */
+        delete player;
+        player = nullptr;
         return;
     }
 
@@ -22,4 +35,8 @@ void Game::addItemToPlayer(const std::string &recipient, uint16_t itemId)
     {
         IOLoginData::savePlayer(player);
     }
+
+    delete player;
+    player = nullptr;
 }
+
