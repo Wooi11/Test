@@ -1,16 +1,33 @@
-local combat = Combat()
-combat:setParameter(COMBAT_PARAM_TYPE, COMBAT_ICEDAMAGE)
-combat:setParameter(COMBAT_PARAM_EFFECT, CONST_ME_ICETORNADO)
-combat:setArea(createCombatArea(AREA_CIRCLE5X5))
+local areaArr = { CUSTOM_AREA_CIRCLE3_1, CUSTOM_AREA_CIRCLE3_2, CUSTOM_AREA_CIRCLE3_3, CUSTOM_AREA_CIRCLE3_4 }
+local combatArr = {}
+local delay = 0;
 
-function onGetFormulaValues(player, level, magicLevel)
-	local min = (level / 5) + (magicLevel * 5.5) + 25
-	local max = (level / 5) + (magicLevel * 11) + 50
-	return -min, -max
+for i = 1,4 do
+    combatArr[i] = Combat()
+    combatArr[i]:setParameter(COMBAT_PARAM_TYPE, COMBAT_ICEDAMAGE)
+    combatArr[i]:setParameter(COMBAT_PARAM_EFFECT, CONST_ME_ICETORNADO)
+    combatArr[i]:setArea(createCombatArea(areaArr[i]))
 end
 
-combat:setCallback(CALLBACK_PARAM_LEVELMAGICVALUE, "onGetFormulaValues")
+local function castSpell(creatureId, variant, combat_idx)
+	local creature = Creature(creatureId)
+	if not creature then
+		return
+	end
+	combatArr[combat_idx]:execute(creature, variant)
+end
 
 function onCastSpell(creature, variant)
-	return combat:execute(creature, variant)
+    castSpell(creature, variant, 1)
+    addEvent(castSpell, 1000, creature:getId(), variant, 1)
+    addEvent(castSpell, 2000, creature:getId(), variant, 1)
+    for i = 1,4 do
+        if i > 0 then
+            delay = (i - 1) * 250
+            addEvent(castSpell, delay, creature:getId(), variant, i)
+            addEvent(castSpell, delay + 1000, creature:getId(), variant, i)
+            addEvent(castSpell, delay + 2000, creature:getId(), variant, i)
+        end
+    end
+	return true
 end
