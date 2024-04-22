@@ -5,6 +5,20 @@ MiniGameWindow < MainWindow
   @onEscape: self:destroy()
 
   Button
+    id: jumpButton
+    !text: tr('Jump')
+    width: 90
+    @onClick: modules.game_minigame.jump()
+
+  Button
+    id: startButton
+    !text: tr('Start')
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    width: 90
+    @onClick: modules.game_minigame.start()
+
+  Button
     id: closeButton
     anchors.bottom: parent.bottom
     anchors.right: parent.right
