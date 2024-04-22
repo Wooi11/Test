@@ -1,0 +1,9 @@
+Module
+  name: game_minigame
+  description: Play minigame
+  author: wooi
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  scripts: [ minigame ]
+  @onLoad: init()
+  @onUnload: terminate()
