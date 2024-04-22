@@ -90,6 +90,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../src;</IncludePath>
     <TargetName>$(ProjectName)_x64</TargetName>
+    <OutDir>$(ProjectDir)../</OutDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <VcpkgHostTriplet>
