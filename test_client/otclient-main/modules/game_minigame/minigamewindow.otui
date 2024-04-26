@@ -6,7 +6,7 @@ MiniGameWindow < MainWindow
 
   Button
     id: jumpButton
-    !text: tr('Jump')
+    !text: tr('Jump!')
     width: 90
     @onClick: modules.game_minigame.jump()
 
