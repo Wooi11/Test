@@ -3,9 +3,9 @@ local combatArr = {}
 local delay = 0;
 local combat = Combat()
 
-/*
-Added a function to handle damage not being applied.
-*/
+
+-- Added a function to handle damage not being applied.
+
 
 -------------------------------------------------------------- add*
 function onGetFormulaValues_1(player, level, magicLevel)
